@@ -41,7 +41,6 @@ public class EnglishSolitaireModel implements MarbleSolitaireModel {
   public EnglishSolitaireModel(int boardSize) throws IllegalArgumentException {
     this ((boardSize / 3) + 1, (boardSize / 2), (boardSize / 2));
   }
-
   
   /**
    * Constructor for EnglishSolitaireModel.
@@ -65,8 +64,8 @@ public class EnglishSolitaireModel implements MarbleSolitaireModel {
     }
 
     board = new HashMap<>();
-    for (int i = 0; i < this.boardSize; i++) {
-      for (int j = 0; j < this.boardSize; j++) {
+    for (int i = 1; i <= this.boardSize; i++) {
+      for (int j = 1; j <= this.boardSize; j++) {
         // set top left square and top right square to invalid
         if (isInvalidPosition(i,j)) {
           board.put(i + "," + j, SlotState.Invalid);
@@ -91,17 +90,17 @@ public class EnglishSolitaireModel implements MarbleSolitaireModel {
   public boolean isInvalidPosition(int row, int col) {
     int sideRectangle = (boardSize / 3);
     // check if row and col are valid
-    if (row < 0 || col < 0 || row > boardSize - 1 || col > boardSize - 1) {
+    if (row < 0 || col < 0 || row > boardSize || col > boardSize) {
       return true;
     }
     // top rectangle range
-    boolean isTopRectangle = row >= 0 && row < sideRectangle;
+    boolean isTopRectangle = row >= 0 && row <= sideRectangle;
     // bottom rectangle range
-    boolean isBottomRectangle = row >= (boardSize - sideRectangle) && row < boardSize;
+    boolean isBottomRectangle = row >= (boardSize - sideRectangle) && row <= boardSize;
     // Left rectangle range
-    boolean isLeftRectangle = col >= 0 && col < sideRectangle;
+    boolean isLeftRectangle = col >= 0 && col <= sideRectangle;
     // right rectangle range
-    boolean isRightRectangle = col >= (boardSize - sideRectangle) && col < boardSize;
+    boolean isRightRectangle = col >= (boardSize - sideRectangle) && col <= boardSize;
 
     // is top left, or top right
     // or is bottom left or bottom right
@@ -126,10 +125,10 @@ public class EnglishSolitaireModel implements MarbleSolitaireModel {
    */
   @Override
   public void move(int fromRow, int fromCol, int toRow, int toCol) throws IllegalArgumentException {
-    if (fromCol < 0 || fromCol > boardSize - 1
-            || fromRow < 0 || fromRow >  boardSize - 1
-            || toCol < 0 || toCol > boardSize - 1
-            || toRow < 0 || toRow > boardSize - 1) {
+    if (fromCol < 0 || fromCol > boardSize
+            || fromRow < 0 || fromRow >  boardSize
+            || toCol < 0 || toCol > boardSize
+            || toRow < 0 || toRow > boardSize) {
       throw new IllegalArgumentException("Out of Bounds");
     }
 
@@ -183,8 +182,8 @@ public class EnglishSolitaireModel implements MarbleSolitaireModel {
   @Override
   public boolean isGameOver() {
     // Iterate over each position on the board
-    for (int i = 0; i < boardSize; i++) {
-      for (int j = 0; j < boardSize; j++) {
+    for (int i = 1; i <= boardSize; i++) {
+      for (int j = 1; j <= boardSize; j++) {
         // Check if the current position contains a marble
         if (board.get(i + "," + j) == SlotState.Marble) {
           // Check if any valid moves can be made from this position
@@ -271,8 +270,8 @@ public class EnglishSolitaireModel implements MarbleSolitaireModel {
   @Override
   public int getScore() {
     int score = 0;
-    for (int i = 0; i < boardSize; i++) {
-      for (int j = 0; j < boardSize; j++) {
+    for (int i = 1; i <= boardSize; i++) {
+      for (int j = 1; j <= boardSize; j++) {
         SlotState slot = board.get(i + "," + j);
         if (slot == SlotState.Marble) {
           score++;
