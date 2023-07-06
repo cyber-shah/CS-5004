@@ -48,7 +48,7 @@ public class TestEnglishSolitaireModel {
 
   @Test (expected = IllegalArgumentException.class)
   public void testInvalidConstructorWithPosition() {
-    model = new EnglishSolitaireModel(0, 0);
+    model = new EnglishSolitaireModel(2, 6);
 
     // Test board size
     assertEquals(7, model.getBoardSize());
@@ -93,7 +93,7 @@ public class TestEnglishSolitaireModel {
     assertEquals(13, model.getBoardSize());
 
     // Test center slot is empty
-    assertEquals(MarbleSolitaireModelState.SlotState.Empty, model.getSlotAt(6, 6));
+    assertEquals(MarbleSolitaireModelState.SlotState.Empty, model.getSlotAt(7, 7));
   }
 
   @Test
@@ -178,7 +178,9 @@ public class TestEnglishSolitaireModel {
 
   @Test
   public void testToString() {
-    model.move(3, 1, 3, 3);
+    model = new EnglishSolitaireModel(4, 4);
+    model.move(4, 2, 4, 4);
+    view = new MarbleSolitaireTextView(model);
     assertEquals(view.toString(), "    O O O\n" +
             "    O O O\n" +
             "O O O O O O O\n" +
@@ -187,7 +189,7 @@ public class TestEnglishSolitaireModel {
             "    O O O\n" +
             "    O O O");
 
-    MarbleSolitaireModel model1 = new EnglishSolitaireModel(2, 4);
+    MarbleSolitaireModel model1 = new EnglishSolitaireModel(3, 5);
     MarbleSolitaireView view1 = new MarbleSolitaireTextView(model1);
     assertEquals(view1.toString(),
               "    O O O\n" +
@@ -215,7 +217,7 @@ public class TestEnglishSolitaireModel {
                     + "        O O O O O\n"
                     + "        O O O O O");
 
-    MarbleSolitaireModel model3 = new EnglishSolitaireModel(5, 4, 4);
+    MarbleSolitaireModel model3 = new EnglishSolitaireModel(5, 5, 5);
     MarbleSolitaireView view3 = new MarbleSolitaireTextView(model3);
     assertEquals(view3.toString(),
                       "        O O O O O\n"
